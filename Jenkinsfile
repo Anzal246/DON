@@ -4,6 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "react-vite-app"
         CONTAINER_NAME = "funny_williams"
+        DOCKER = "/usr/local/bin/docker"
     }
 
     stages {
@@ -17,15 +18,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh '$DOCKER build -t $IMAGE_NAME .'
             }
         }
 
         stage('Stop Old Container') {
             steps {
                 sh '''
-                docker stop $CONTAINER_NAME || true
-                docker rm $CONTAINER_NAME || true
+                $DOCKER stop $CONTAINER_NAME || true
+                $DOCKER rm $CONTAINER_NAME || true
                 '''
             }
         }
@@ -33,7 +34,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 sh '''
-                docker run -d -p 5173:5173 --name $CONTAINER_NAME $IMAGE_NAME
+                $DOCKER run -d -p 5173:5173 --name $CONTAINER_NAME $IMAGE_NAME
                 '''
             }
         }
