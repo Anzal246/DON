@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "react-vite-app"
-        CONTAINER_NAME = "funny_williams"
+        CONTAINER_NAME = "nice_hertz"
         DOCKER = "/usr/local/bin/docker"
     }
 
